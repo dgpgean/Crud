@@ -1,34 +1,30 @@
-@extends('templates.template')
+@extends('templates.main')
+
+@section('title','Agenda')
 
 @section('content')
-    <h1 class="text-center">Crud</h1>
-    <hr>
-    <div class="col-8 m-auto">
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr class="dark">
-                    <td class="table-dark">Id</td>
-                    <td class="table-dark">Título</td>
-                    <td class="table-dark">Autor</td>
-                    <td class="table-dark">Preço</td>
-                </tr>
-            </thead>
-            <tbody>
-             @foreach($book as $books)
-                @php
-                    $user=$books->find($books->id)->relUsers;    
-                @endphp
-                 <tr>
-                     <td>{{$books->id}}</td>
-                     <td>{{$books->title}}</td>
-                     <td>{{$user->name}}</td>
-                     <td>{{$books->price}}</td>
 
-                 </tr>
-             @endforeach
+@if(session('msg'))
+<p class="msg-error">{{session('msg')}}</p>
+    
+@endif
+    
+<main>
 
-            </tbody>
-        </table>
+    <form method="POST" action="/user">
+      @csrf
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+      </div>
+      <div id="emailHelp" class="form-text">Não tem cadastro? <a href="/user/new">clique aqui</a></div>
+      <button type="submit" class="btn btn-success">Login</button>
+    </form>
 
-    </div>
+</main>
+    
 @endsection
